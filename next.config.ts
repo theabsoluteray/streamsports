@@ -1,7 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      // ESPN / ABC team logos
+      { protocol: "https", hostname: "a.espncdn.com" },
+      { protocol: "https", hostname: "a1.espncdn.com" },
+      { protocol: "https", hostname: "a2.espncdn.com" },
+      { protocol: "https", hostname: "a3.espncdn.com" },
+      { protocol: "https", hostname: "a4.espncdn.com" },
+      { protocol: "https", hostname: "**.espncdn.com" },
+    ],
+  },
 };
 
 export default nextConfig;
