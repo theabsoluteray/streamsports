@@ -42,46 +42,33 @@ function slugify(name: string): string {
 export const providers: Provider[] = [
   {
     id: 'streameast',
-    name: 'StreamEast (Embed)',
-    // Exact pure-iframe path for StreamEast
-    buildUrl: (m) => `https://v2.gostreameast.link/embed/${slugify(m.homeTeam.name)}-vs-${slugify(m.awayTeam.name)}`,
+    name: 'StreamEast',
+    // Pure iframe player path
+    buildUrl: (m) => `https://streameast.app/embed/${slugify(m.homeTeam.name)}-vs-${slugify(m.awayTeam.name)}`,
   },
   {
-    id: 'sportsurge',
-    name: 'SportSurge (Match)',
-    buildUrl: (m) => {
-      // Sportsurge uses top-level sport paths like /soccer, /basketball
-      const mainSport = m.sportPath.split('/')[0] || 'soccer';
-      return `https://sportsurge.bz/${mainSport}`;
-    },
-  },
-  {
-    id: 'viprow',
-    name: 'VIPRow (Match)',
-    // VIPRow uses "home-vs-away-online-stream"
-    buildUrl: (m) => `https://www.viprow.co/${slugify(m.homeTeam.name)}-vs-${slugify(m.awayTeam.name)}-online-stream`,
+    id: 'vipleague',
+    name: 'VIPLeague',
+    // Pure iframe player path
+    buildUrl: (m) => `https://vipleague.im/embed/${slugify(m.homeTeam.name)}-${slugify(m.awayTeam.name)}-streaming`,
   },
   {
     id: 'totalsportek',
-    name: 'TotalSportek (Match)',
-    // Total uses "home-vs-away"
-    buildUrl: (m) => `https://totalsportek.events/${slugify(m.homeTeam.name)}-vs-${slugify(m.awayTeam.name)}`,
-  },
-  {
-    id: 'streamcorner',
-    name: 'StreamCorner (Match)',
-    buildUrl: (m) => `https://streamcorner.info/${slugify(m.homeTeam.name)}-vs-${slugify(m.awayTeam.name)}`,
-  },
-  {
-    id: 'daddylive',
-    name: 'DaddyLive (Channel 1)',
-    // DaddyLive uses channel IDs. We can't know the exact channel, so map to ch1 as fallback
-    buildUrl: (m) => `https://daddylive.top/embed/stream-1.php`,
+    name: 'TotalSportek',
+    // Pure player embed
+    buildUrl: (m) => `https://totalsportek.pro/embed/${slugify(m.homeTeam.name)}-vs-${slugify(m.awayTeam.name)}`,
   },
   {
     id: 'sportsembed',
-    name: 'SportsEmbed (API)',
-    buildUrl: (m) => `https://sportsembed.su/embed?id=${m.id}`,
+    name: 'SportsEmbed',
+    // Generic embed API structure
+    buildUrl: (m) => `https://sportsembed.su/embed/live?id=${m.id}&sport=${sportSlug(m.leagueSlug)}`,
+  },
+  {
+    id: 'daddylive',
+    name: 'DaddyLive',
+    // DaddyLive pure streaming player
+    buildUrl: (m) => `https://daddylivehd.com/embed/stream-74.php`,
   },
 ];
 
