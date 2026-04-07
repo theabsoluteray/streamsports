@@ -44,12 +44,16 @@ export const providers: Provider[] = [
     id: 'streameast',
     name: 'StreamEast (Embed)',
     // Exact pure-iframe path for StreamEast
-    buildUrl: (m) => `https://v2.gostreameast.link/embed/${slugify(m.homeTeam.name)}-${slugify(m.awayTeam.name)}`,
+    buildUrl: (m) => `https://v2.gostreameast.link/embed/${slugify(m.homeTeam.name)}-vs-${slugify(m.awayTeam.name)}`,
   },
   {
     id: 'sportsurge',
     name: 'SportSurge (Match)',
-    buildUrl: (m) => `https://sportsurge.bz/${sportSlug(m.leagueSlug)}`, // Aggregate only, fallback
+    buildUrl: (m) => {
+      // Sportsurge uses top-level sport paths like /soccer, /basketball
+      const mainSport = m.sportPath.split('/')[0] || 'soccer';
+      return `https://sportsurge.bz/${mainSport}`;
+    },
   },
   {
     id: 'viprow',
@@ -77,8 +81,7 @@ export const providers: Provider[] = [
   {
     id: 'sportsembed',
     name: 'SportsEmbed (API)',
-    // sportsembed uses arbitrary IDs
-    buildUrl: (m) => `https://sportsembed.su/embed?id=1`,
+    buildUrl: (m) => `https://sportsembed.su/embed?id=${m.id}`,
   },
 ];
 
