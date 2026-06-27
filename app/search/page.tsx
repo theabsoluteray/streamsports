@@ -60,13 +60,16 @@ function SearchContent() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
-      <h1 className="text-2xl font-bold tracking-tight mb-5" style={{ color: 'var(--text-primary)' }}>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+      <h1 className="text-3xl font-bold tracking-tight mb-2" style={{ color: 'var(--text-primary)' }}>
         Search
       </h1>
+      <p className="text-sm font-medium mb-8" style={{ color: 'var(--text-muted)' }}>
+        Find matches, teams, players, and leagues across all sports
+      </p>
 
       {/* Search input */}
-      <form onSubmit={handleSearch} className="mb-8">
+      <form onSubmit={handleSearch} className="mb-10">
         <div
           className="flex items-center gap-3 px-4 py-3 rounded-2xl border"
           style={{ background: 'var(--bg-surface)', borderColor: 'var(--border-default)' }}
@@ -138,7 +141,7 @@ function SearchContent() {
 
       {/* Match results */}
       {matchResults.length > 0 && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-8">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-12">
           <SectionHeader title="Matches" subtitle={`${matchResults.length} result${matchResults.length !== 1 ? 's' : ''}`} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {matchResults.map((m, i) => (
@@ -150,7 +153,7 @@ function SearchContent() {
 
       {/* Teams */}
       {(globalResults?.teams?.length ?? 0) > 0 && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-8">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-12">
           <SectionHeader title="Teams" subtitle={`${globalResults?.teams?.length} result${(globalResults?.teams?.length ?? 0) !== 1 ? 's' : ''}`} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {globalResults?.teams?.slice(0, 12).map((team) => (
@@ -172,7 +175,7 @@ function SearchContent() {
 
       {/* Players */}
       {(globalResults?.players?.length ?? 0) > 0 && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-8">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-12">
           <SectionHeader title="Players" subtitle={`${globalResults?.players?.length} result${(globalResults?.players?.length ?? 0) !== 1 ? 's' : ''}`} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {globalResults?.players?.slice(0, 12).map((player) => (

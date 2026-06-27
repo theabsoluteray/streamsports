@@ -16,13 +16,16 @@ export default function FavoritesPage() {
   const leagues = favorites.filter((f) => f.type === 'league');
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
-      <div className="flex items-center gap-2 mb-6">
-        <Heart size={22} style={{ color: '#f87171' }} />
-        <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+      <div className="flex items-center gap-2 mb-2">
+        <Heart size={24} style={{ color: '#f87171' }} />
+        <h1 className="text-3xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
           Favorites
         </h1>
       </div>
+      <p className="text-sm font-medium mb-8" style={{ color: 'var(--text-muted)' }}>
+        Your saved matches, teams, and leagues
+      </p>
 
       {favorites.length === 0 ? (
         <EmptyState
@@ -36,12 +39,12 @@ export default function FavoritesPage() {
           }
         />
       ) : (
-        <div className="space-y-8">
+        <div className="space-y-10">
           {/* Matches */}
           {matches.length > 0 && (
             <div>
               <SectionHeader title="Saved Matches" subtitle={`${matches.length} saved`} />
-              <div className="space-y-2">
+              <div className="space-y-2 mt-4">
                 {matches.map((item, i) => {
                   const color = getSportColor(item.sport);
                   return (
@@ -80,7 +83,7 @@ export default function FavoritesPage() {
           {teams.length > 0 && (
             <div>
               <SectionHeader title="Saved Teams" subtitle={`${teams.length} saved`} />
-              <div className="space-y-2">
+              <div className="space-y-2 mt-4">
                 {teams.map((item, i) => {
                   const color = getSportColor(item.sport);
                   return (
@@ -109,7 +112,7 @@ export default function FavoritesPage() {
           {leagues.length > 0 && (
             <div>
               <SectionHeader title="Saved Leagues" subtitle={`${leagues.length} saved`} />
-              <div className="space-y-2">
+              <div className="space-y-2 mt-4">
                 {leagues.map((item, i) => {
                   const color = getSportColor(item.sport);
                   return (

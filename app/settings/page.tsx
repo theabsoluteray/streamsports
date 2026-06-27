@@ -67,18 +67,21 @@ export default function SettingsPage() {
   const { clearNotifications, notifications } = useNotificationsStore();
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6">
-      <div className="flex items-center gap-2 mb-6">
-        <Settings size={22} style={{ color: 'var(--text-secondary)' }} />
-        <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+      <div className="flex items-center gap-2 mb-2">
+        <Settings size={24} style={{ color: 'var(--text-secondary)' }} />
+        <h1 className="text-3xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
           Settings
         </h1>
       </div>
+      <p className="text-sm font-medium mb-8" style={{ color: 'var(--text-muted)' }}>
+        Customize your preferences and manage data
+      </p>
 
       {/* Appearance */}
       <SettingSection title="Appearance">
-        <div className="pt-3">
-          <p className="text-sm font-medium mb-3" style={{ color: 'var(--text-primary)' }}>Theme</p>
+        <div className="pt-4">
+          <p className="text-sm font-medium mb-4" style={{ color: 'var(--text-primary)' }}>Theme</p>
           <div className="flex gap-2">
             {THEME_OPTIONS.map(({ id, label, icon: Icon }) => (
               <button

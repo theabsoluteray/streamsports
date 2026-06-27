@@ -181,8 +181,8 @@ body {
 .slide-up { animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
 
 /* ─── Layout ────────────────────────────────────────────────── */
-.section-stack > * + * { margin-top: 3rem; }
-@media (max-width: 768px) { .section-stack > * + * { margin-top: 2rem; } }
+.section-stack > * + * { margin-top: 5rem; }
+@media (max-width: 768px) { .section-stack > * + * { margin-top: 3.5rem; } }
 
 .page-container {
   max-width: 1600px;
