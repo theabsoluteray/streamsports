@@ -14,29 +14,7 @@ import { cn } from '@/lib/utils';
 import { SPORTS_CONFIG } from '@/lib/sports-config';
 import type { Match } from '@/lib/types';
 
-// ─── Live ticker ──────────────────────────────────────────────────────────────
-function LiveTicker({ matches }: { matches: Match[] }) {
-  if (matches.length === 0) return null;
-  const items = [...matches, ...matches];
-  return (
-    <div className="ticker-bar border-t" style={{ borderColor: 'var(--border-subtle)' }}>
-      <div className="ticker-inner">
-        {items.map((m, i) => (
-          <Link
-            key={`${m.id}-${i}`}
-            href={`/match/${m.id}?sport=${m.sport}&league=${m.league.id}`}
-            className={cn('ticker-item hover:text-[var(--text-primary)] transition-colors', 'is-live')}
-          >
-            <span className="live-dot w-1.5 h-1.5 rounded-full bg-[var(--live-red)] flex-shrink-0" />
-            <span className="truncate max-w-[100px]">{m.homeTeam.abbreviation}</span>
-            <span className="ticker-score">{m.homeScore}–{m.awayScore}</span>
-            <span className="truncate max-w-[100px]">{m.awayTeam.abbreviation}</span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
+
 
 // ─── Sports mega-dropdown ─────────────────────────────────────────────────────
 function SportsDropdown({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
@@ -167,7 +145,7 @@ function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   );
 }
 
-// ─── Mobile Bottom Nav ────────────────────────────────────────────────────────
+// ─── Mobile Bottom Nav ───────────────────────��────────────────────────────────
 function MobileBottomNav() {
   const pathname = usePathname();
   const { openSearch } = useUIStore();
