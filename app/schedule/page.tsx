@@ -85,88 +85,52 @@ function ScheduleRow({ match }: { match: Match }) {
 // ─── Schedule Page ────────────────────────────────────────────────────────────
 
 export default function SchedulePage() {
-  const { sportFilter, setSportFilter } = useUIStore();
   const [stateFilter, setStateFilter] = useState<StateFilter>('all');
   const { data: allMatches, isLoading, isError, refetch } = useAllMatches();
 
   const filtered = useMemo(() => {
     if (!allMatches) return [];
     return allMatches.filter((m) => {
-      const sportMatch = sportFilter === 'all' || m.sport === sportFilter;
       const stateMatch = stateFilter === 'all' || m.state === stateFilter;
-      return sportMatch && stateMatch;
+      return stateMatch;
     }).sort((a, b) => {
       const order = { in: 0, pre: 1, post: 2 };
       if (order[a.state] !== order[b.state]) return order[a.state] - order[b.state];
       return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
     });
-  }, [allMatches, sportFilter, stateFilter]);
+  }, [allMatches, stateFilter]);
 
   const grouped = useMemo(() => groupBy(filtered, (m) => m.league.name), [filtered]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
       {/* Page Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-2 gradient-text">
-          Broadcast Planner
+      <div className="mb-10">
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2" style={{ color: 'var(--text-primary)' }}>
+          Schedule
         </h1>
-        <p className="text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
-          Aggregated Live Events, Schedules, and Match Records
+        <p className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
+          All live events, upcoming matches, and results
         </p>
       </div>
 
-      {/* Filter Tabs Block */}
-      <div className="flex flex-col gap-4 mb-8">
-        {/* State tabs */}
-        <div className="flex overflow-x-auto no-scrollbar gap-1 p-1 rounded-2xl border border-white/[0.04] w-fit" style={{ background: 'var(--bg-surface)' }}>
+      {/* Filter Tabs - Simplified */}
+      <div className="mb-8">
+        {/* State tabs only */}
+        <div className="flex overflow-x-auto no-scrollbar gap-2 pb-1">
           {STATE_TABS.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
               onClick={() => setStateFilter(id)}
               className={cn(
-                'flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer flex-shrink-0',
+                'flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 cursor-pointer flex-shrink-0',
                 stateFilter === id
-                  ? 'bg-brand-600 text-white shadow-glow-brand'
+                  ? 'bg-blue-600 text-white'
                   : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/5'
               )}
             >
-              <Icon size={12} />
+              <Icon size={14} />
               {label}
-            </button>
-          ))}
-        </div>
-
-        {/* Sport tabs */}
-        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-          <button
-            onClick={() => setSportFilter('all')}
-            className={cn(
-              'flex-shrink-0 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all duration-300 cursor-pointer',
-              sportFilter === 'all'
-                ? 'bg-brand-600 border-brand-600 text-white shadow-glow-brand'
-                : 'border-[var(--border-default)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/5'
-            )}
-          >
-            All Sports
-          </button>
-          {SPORTS_CONFIG.map((sport) => (
-            <button
-              key={sport.slug}
-              onClick={() => setSportFilter(sport.slug as SportSlug)}
-              className={cn(
-                'flex-shrink-0 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all duration-300 cursor-pointer',
-                sportFilter === sport.slug
-                  ? 'text-white border-transparent'
-                  : 'border-[var(--border-default)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/5'
-              )}
-              style={sportFilter === sport.slug ? {
-                background: sport.color,
-                borderColor: sport.color,
-                boxShadow: `0 0 12px ${sport.color}40`
-              } : {}}
-            >
-              {sport.name}
             </button>
           ))}
         </div>

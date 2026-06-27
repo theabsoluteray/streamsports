@@ -12,11 +12,11 @@ export default function HistoryPage() {
   const { history, removeFromHistory, clearHistory } = useHistoryStore();
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
-      <div className="flex items-center justify-between mb-6">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+      <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <History size={22} style={{ color: 'var(--text-secondary)' }} />
-          <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
+          <History size={24} style={{ color: 'var(--text-secondary)' }} />
+          <h1 className="text-3xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
             Watch History
           </h1>
         </div>
@@ -29,6 +29,9 @@ export default function HistoryPage() {
           </button>
         )}
       </div>
+      <p className="text-sm font-medium mb-8" style={{ color: 'var(--text-muted)' }}>
+        Recently watched matches
+      </p>
 
       {history.length === 0 ? (
         <EmptyState
@@ -42,7 +45,7 @@ export default function HistoryPage() {
           }
         />
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-3">
           {history.map((entry, i) => {
             const color = getSportColor(entry.sport);
             const progressPct = Math.min((entry.progressSeconds / 7200) * 100, 100);
